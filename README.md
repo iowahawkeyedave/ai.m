@@ -20,5 +20,18 @@ The whole point: make it dead simple to see **which model you’re on** (and why
 ## Docs
 - See **docs/idea.md** for the full concept write-up.
 
+## Local Setup
+```bash
+npm install
+npm run db:init
+npm run dev
+```
+
+### Database
+- Default SQLite path: `file:./data/aim.sqlite`
+- Override with `DATABASE_URL` (must be a `file:` URL)
+- Schema source: `src/lib/db-schema.sql`
+- Init/migration command: `npm run db:init`
+
 ## License
 MIT
