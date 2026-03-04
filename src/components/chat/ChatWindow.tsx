@@ -1,6 +1,8 @@
 import { ChatHeader } from "@/components/chat/ChatHeader";
 import { MessageList } from "@/components/chat/MessageList";
 import { ActivityFeed } from "@/components/ui/ActivityFeed";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import type { Buddy, Conversation, ConversationEvent, Message } from "@/lib/types";
 import type { KeyboardEvent } from "react";
 
@@ -86,7 +88,7 @@ export function ChatWindow({
             ? "Press Enter to send. Shift+Enter for newline."
             : "Select a buddy first to begin chatting."}
         </label>
-        <textarea
+        <Textarea
           id="chat-composer"
           value={draftMessage}
           onChange={(event) => onDraftMessageChange(event.target.value)}
@@ -94,20 +96,20 @@ export function ChatWindow({
           disabled={composerDisabled}
           placeholder={conversation ? "Type a message..." : "No active conversation"}
           rows={3}
-          className="w-full resize-none rounded-md border border-zinc-300 px-3 py-2 text-sm outline-none ring-blue-500 transition focus:ring-2 disabled:cursor-not-allowed disabled:bg-zinc-100"
+          className="min-h-[84px] resize-none"
         />
         <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <p className="w-full truncate text-xs text-zinc-500 sm:w-auto">
             {conversation ? `Conversation title: ${conversation.title}` : ""}
           </p>
-          <button
-            type="button"
+          <Button
             disabled={composerDisabled || draftMessage.trim().length === 0}
             onClick={onSendMessage}
-            className="rounded-md bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-zinc-300"
+            size="sm"
+            className="sm:self-auto"
           >
             {isSendingMessage ? "Sending..." : "Send"}
-          </button>
+          </Button>
         </div>
       </footer>
     </section>

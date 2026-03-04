@@ -33,5 +33,16 @@ npm run dev
 - Schema source: `src/lib/db-schema.sql`
 - Init/migration command: `npm run db:init`
 
+## UI Components (shadcn/ui)
+- Initialized with `components.json` (New York style, Tailwind v4).
+- Generated base primitives:
+  - `src/components/ui/button.tsx`
+  - `src/components/ui/input.tsx`
+  - `src/components/ui/textarea.tsx`
+  - `src/components/ui/scroll-area.tsx`
+- Convention:
+  - Keep reusable primitives in `src/components/ui`
+  - Keep app/domain components in `src/components/{buddies,chat,...}`
+
 ## License
 MIT

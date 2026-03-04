@@ -1,3 +1,6 @@
-export function notImplemented(feature: string): never {
-  throw new Error(`${feature} is not implemented yet`);
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
 }
