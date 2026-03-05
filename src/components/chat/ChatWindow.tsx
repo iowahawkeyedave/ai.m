@@ -45,6 +45,21 @@ export function ChatWindow({
   }
 
   const composerDisabled = !conversation || isSendingMessage;
+  const chatPanelContent = !buddy ? (
+    <div className="flex min-h-[340px] items-center justify-center p-6 text-sm text-[#244282]">
+      Select a buddy to open or create a conversation.
+    </div>
+  ) : isLoadingMessages ? (
+    <div className="flex min-h-[340px] items-center justify-center p-6 text-sm text-[#244282]">
+      Loading messages...
+    </div>
+  ) : messages.length === 0 ? (
+    <div className="flex min-h-[340px] items-center justify-center p-6 text-sm text-[#244282]">
+      No messages yet. Start the conversation with a friendly IM.
+    </div>
+  ) : (
+    <MessageList messages={messages} buddy={buddy} />
+  );
 
   return (
     <section className="aim-window w-full min-w-0 p-2">
@@ -54,44 +69,7 @@ export function ChatWindow({
         isSwitchingModel={isSwitchingModel}
         onModelSwitch={onModelSwitch}
       />
-      {!buddy ? (
-        <>
-          <div className="aim-chat-panel mt-2 flex min-h-[340px] items-center justify-center p-6 text-sm text-[#244282]">
-            Select a buddy to open or create a conversation.
-          </div>
-          <footer className="mt-2 space-y-2">
-            <Textarea
-              id="chat-composer"
-              value={draftMessage}
-              onChange={(event) => onDraftMessageChange(event.target.value)}
-              onKeyDown={handleComposerKeyDown}
-              disabled
-              placeholder="Select a buddy first to begin chatting."
-              rows={3}
-              className="aim-input min-h-[92px] resize-none px-3 py-2 text-[14px] text-black"
-            />
-            <div className="flex justify-end gap-3">
-              <Button disabled className="aim-action-btn min-w-[140px]">Send</Button>
-              <Button disabled className="aim-action-btn min-w-[140px]">Close</Button>
-            </div>
-          </footer>
-        </>
-      ) : null}
-      {buddy && isLoadingMessages ? (
-        <div className="aim-chat-panel mt-2 flex min-h-[340px] items-center justify-center p-6 text-sm text-[#244282]">
-          Loading messages...
-        </div>
-      ) : null}
-      {buddy && !isLoadingMessages && messages.length === 0 ? (
-        <div className="aim-chat-panel mt-2 flex min-h-[340px] items-center justify-center p-6 text-sm text-[#244282]">
-          No messages yet. Start the conversation with a friendly IM.
-        </div>
-      ) : null}
-      {buddy && !isLoadingMessages && messages.length > 0 ? (
-        <div className="aim-chat-panel mt-2 min-h-[340px]">
-          <MessageList messages={messages} buddy={buddy} />
-        </div>
-      ) : null}
+      <div className="aim-chat-panel mt-2 min-h-[340px]">{chatPanelContent}</div>
       {buddy ? (
         <div className="aim-compose-toolbar mt-2 flex flex-wrap items-center gap-1 px-2 py-1 text-[13px] text-[#0b2b89]">
           <span className="aim-toolbar-glyph font-bold">A</span>
@@ -115,7 +93,7 @@ export function ChatWindow({
           onChange={(event) => onDraftMessageChange(event.target.value)}
           onKeyDown={handleComposerKeyDown}
           disabled={composerDisabled}
-          placeholder={conversation ? "Type a message..." : "No active conversation"}
+          placeholder={conversation ? "Type a message..." : "Select a buddy first to begin chatting."}
           rows={3}
           className="aim-input min-h-[98px] resize-none px-3 py-2 text-[14px] text-black"
         />

@@ -127,6 +127,15 @@ body {
   text-shadow: 1px 1px 0 rgb(0 0 0 / 35%);
 }
 
+.aim-title-icon {
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+  border: 1px solid #7fd1ff;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 35%, #fff 0, #7fd1ff 35%, #0b58d3 100%);
+}
+
 .aim-menu {
   border: 1px solid #7f7f7f;
   background: #d4d4d4;
@@ -325,10 +334,30 @@ body {
 
 .aim-footer-action {
   min-height: 62px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
   font-size: 15px;
 }
 
+.aim-footer-icon {
+  display: inline-flex;
+  height: 18px;
+  width: 18px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #000;
+  border-radius: 999px;
+  background: #f2f2f2;
+  font-size: 12px;
+  font-weight: 700;
+}
+
 .aim-launch-btn {
+  display: flex;
+  align-items: center;
   padding: 8px 12px;
   font-size: 15px;
   text-align: left;
