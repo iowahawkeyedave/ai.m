@@ -45,11 +45,11 @@ function formatEventDetail(payloadJson: string): string {
 export function ActivityFeed({ events }: ActivityFeedProps) {
   if (events.length === 0) {
     return (
-      <aside className="rounded-md border border-zinc-200 bg-zinc-50 p-3">
-        <h3 className="text-xs font-semibold uppercase tracking-wide text-zinc-600">
+      <aside className="aim-inset rounded-sm bg-[#f8faff] p-2.5">
+        <h3 className="text-xs font-semibold tracking-wide text-[#284688]">
           Activity
         </h3>
-        <p className="mt-2 text-xs text-zinc-500">
+        <p className="mt-2 text-xs text-[#4e67a0]">
           No tool or fallback activity yet.
         </p>
       </aside>
@@ -57,20 +57,23 @@ export function ActivityFeed({ events }: ActivityFeedProps) {
   }
 
   return (
-    <aside className="rounded-md border border-zinc-200 bg-zinc-50 p-3">
-      <h3 className="text-xs font-semibold uppercase tracking-wide text-zinc-600">
+    <aside className="aim-inset rounded-sm bg-[#f8faff] p-2.5">
+      <h3 className="text-xs font-semibold tracking-wide text-[#284688]">
         Activity
       </h3>
       <ol className="mt-2 max-h-40 space-y-2 overflow-y-auto pr-1">
         {events.map((event) => (
-          <li key={event.id} className="rounded border border-zinc-200 bg-white p-2">
-            <p className="text-xs font-medium text-zinc-800">
+          <li
+            key={event.id}
+            className="rounded-sm border border-[#a8b6da] bg-white p-2"
+          >
+            <p className="text-xs font-semibold text-[#1f3f86]">
               {formatEventLabel(event)}
             </p>
-            <p className="mt-0.5 text-xs break-words text-zinc-600">
+            <p className="mt-0.5 text-xs break-words text-[#4d669f]">
               {formatEventDetail(event.payloadJson)}
             </p>
-            <p className="mt-1 truncate text-[10px] text-zinc-500">{event.createdAt}</p>
+            <p className="mt-1 truncate text-[10px] text-[#6b7fad]">{event.createdAt}</p>
           </li>
         ))}
       </ol>

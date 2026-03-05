@@ -7,23 +7,28 @@ interface MessageBubbleProps {
 export function MessageBubble({ message }: MessageBubbleProps) {
   const isUser = message.role === "user";
   const isSystem = message.role === "system";
+  const label = isUser ? "You" : isSystem ? "System" : "Buddy";
+  const timestamp = new Date(message.createdAt).toLocaleTimeString([], {
+    hour: "numeric",
+    minute: "2-digit",
+  });
 
   return (
-    <article
-      className={[
-        "max-w-[92%] break-words rounded-lg border px-3 py-2 text-sm shadow-sm sm:max-w-[80%]",
-        isUser
-          ? "ml-auto border-blue-200 bg-blue-50 text-blue-950"
-          : isSystem
-            ? "mx-auto border-amber-200 bg-amber-50 text-amber-900"
-            : "mr-auto border-zinc-200 bg-white text-zinc-900",
-      ].join(" ")}
-    >
-      <p className="mb-1 text-[11px] font-semibold uppercase tracking-wide opacity-70">
-        {message.role}
-        {message.modelUsed ? ` · ${message.modelUsed}` : ""}
+    <article className="aim-log-bubble break-words px-2.5 py-1.5 text-[13px] leading-relaxed text-[#15387f]">
+      <p
+        className={[
+          "mb-0.5 text-[11px] font-bold",
+          isUser ? "text-[#0f3f91]" : isSystem ? "text-[#7a5600]" : "text-[#14691f]",
+        ].join(" ")}
+      >
+        {timestamp} {label}:
       </p>
-      <p className="whitespace-pre-wrap leading-relaxed">{message.content}</p>
+      <p className="whitespace-pre-wrap">
+        {message.content}
+      </p>
+      {message.modelUsed ? (
+        <p className="mt-0.5 text-[10px] text-[#5b70a5]">via {message.modelUsed}</p>
+      ) : null}
     </article>
   );
 }
