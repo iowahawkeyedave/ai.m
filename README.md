@@ -17,6 +17,11 @@ The whole point: make it dead simple to see **which model you’re on** (and why
 - Streaming responses + typing indicator
 - Local conversation history (SQLite)
 
+### Current Status
+- ✅ Core MVP is implemented (buddy list, chat UI, SQLite persistence, streaming, model switching + events).
+- ✅ OpenClaw-specific integration was intentionally removed in favor of direct provider messaging.
+- 🚧 Next stabilization task: add API/integration tests for message + event flows.
+
 ## Docs
 - See **docs/idea.md** for the full concept write-up.
 
@@ -25,6 +30,12 @@ The whole point: make it dead simple to see **which model you’re on** (and why
 npm install
 npm run db:init
 npm run dev
+```
+
+## Quality Checks
+```bash
+npm run lint
+npm run build
 ```
 
 ### Database
