@@ -39,26 +39,38 @@ export function ChatHeader({
 }: ChatHeaderProps) {
   if (!buddy) {
     return (
-      <header className="border-b border-zinc-200 px-4 py-3">
-        <p className="text-sm text-zinc-600">No buddy selected</p>
+      <header className="aim-titlebar rounded-t-[3px] px-4 py-2.5">
+        <p className="text-sm font-semibold">No buddy selected</p>
+        <p className="text-xs text-[#eaf1ff]">Choose a buddy from your list to start chatting.</p>
       </header>
     );
   }
 
+  const resolvedModelOptions = MODEL_OPTIONS.some((option) => option.model === buddy.model)
+    ? MODEL_OPTIONS
+    : [
+        {
+          label: `Current (${buddy.provider})`,
+          provider: buddy.provider,
+          model: buddy.model,
+        },
+        ...MODEL_OPTIONS,
+      ];
+
   return (
-    <header className="border-b border-zinc-200 px-4 py-3">
+    <header className="aim-titlebar rounded-t-[3px] px-4 py-2.5">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
         <div className="min-w-0">
-          <h2 className="truncate text-sm font-semibold text-zinc-900">
+          <h2 className="truncate text-sm font-semibold">
             {buddy.displayName}
           </h2>
-          <p className="truncate text-xs text-zinc-600">
-            Provider: {buddy.provider}
+          <p className="truncate text-xs text-[#eaf1ff]">
+            Screen name: {buddy.id}
           </p>
         </div>
-        <div className="rounded-md border border-zinc-200 bg-zinc-50 px-2 py-1 sm:max-w-[55%] sm:text-right">
-          <p className="text-[10px] uppercase tracking-wide text-zinc-500">Current model</p>
-          <p className="break-all text-xs font-medium text-zinc-800">
+        <div className="aim-inset rounded-sm bg-[#f5f8ff] px-2 py-1 text-[#15387f] sm:max-w-[55%] sm:text-right">
+          <p className="text-[10px] uppercase tracking-wide text-[#4c66a3]">Current model</p>
+          <p className="break-all text-xs font-semibold">
             {buddy.model}
           </p>
         </div>
@@ -66,16 +78,17 @@ export function ChatHeader({
       <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
         <ModelSwitcher
           value={buddy.model}
-          options={MODEL_OPTIONS}
+          options={resolvedModelOptions}
           disabled={isSwitchingModel}
           onChange={onModelSwitch}
         />
         {isSwitchingModel ? (
-          <span className="text-xs text-zinc-500">Switching…</span>
+          <span className="text-xs text-[#eaf1ff]">Switching...</span>
         ) : null}
       </div>
+      <p className="mt-2 text-xs text-[#eaf1ff]">Service: {buddy.provider}</p>
       {conversation ? (
-        <p className="mt-2 truncate text-xs text-zinc-500">
+        <p className="mt-2 truncate text-xs text-[#eaf1ff]">
           Conversation: {conversation.id}
         </p>
       ) : null}

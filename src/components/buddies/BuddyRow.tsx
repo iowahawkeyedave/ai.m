@@ -14,17 +14,17 @@ export function BuddyRow({ buddy, status, isActive, onSelect }: BuddyRowProps) {
       type="button"
       onClick={() => onSelect(buddy.id)}
       className={[
-        "flex w-full items-center justify-between rounded-md border px-3 py-2 text-left transition-colors",
+        "flex w-full items-center justify-between border px-2 py-1.5 text-left text-[13px] transition-colors focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-[-2px] focus-visible:outline-[#1b4ba4]",
         isActive
-          ? "border-blue-500 bg-blue-50"
-          : "border-transparent bg-white hover:border-zinc-200 hover:bg-zinc-50",
+          ? "border-[#3558ab] bg-[#d7e5ff] shadow-[inset_1px_1px_0_#ffffff,inset_-1px_-1px_0_#99ade0]"
+          : "border-[#a8b4d2] bg-[#f8f8fc] shadow-[inset_1px_1px_0_#ffffff] hover:bg-[#ebf1ff]",
       ].join(" ")}
     >
       <span className="flex min-w-0 flex-col">
-        <span className="truncate text-sm font-medium text-zinc-900">
+        <span className="truncate font-bold tracking-[0.1px] text-[#0f3a80]">
           {buddy.displayName}
         </span>
-        <span className="truncate text-xs text-zinc-500">{buddy.model}</span>
+        <span className="truncate text-[11px] text-[#2f518f]">{buddy.provider}: {buddy.model}</span>
       </span>
       <StatusLight status={status} />
     </button>
