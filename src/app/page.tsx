@@ -33,15 +33,6 @@ interface EventsResponse {
   events: ConversationEvent[];
 }
 
-interface OpenClawProxyResponse {
-  assistantText: string;
-  modelUsed: string;
-  events: Array<{
-    kind: ConversationEvent["kind"];
-    payload: Record<string, unknown>;
-  }>;
-}
-
 export default function Home() {
   const [buddies, setBuddies] = useState<Buddy[]>([]);
   const [activeBuddyId, setActiveBuddyId] = useState<string | null>(null);
@@ -212,64 +203,42 @@ export default function Home() {
       const data = (await response.json()) as CreateMessageResponse;
       setMessages((current) => [...current, data.message]);
       setDraftMessage("");
-
-      const proxyResponse = await fetch("/api/proxy/openclaw", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          input: content,
-          buddyModel: activeBuddy.model,
-        }),
-      });
-
-      if (!proxyResponse.ok) {
-        throw new Error(`OpenClaw proxy failed (${proxyResponse.status})`);
-      }
-
-      const proxyData = (await proxyResponse.json()) as OpenClawProxyResponse;
-
-      if (proxyData.assistantText.trim()) {
-        const assistantResponse = await fetch(
-          `/api/conversations/${encodeURIComponent(activeConversationId)}/messages`,
-          {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify({
-              role: "assistant",
-              content: proxyData.assistantText,
-              modelUsed: proxyData.modelUsed,
-            }),
-          },
-        );
-
-        if (!assistantResponse.ok) {
-          throw new Error(
-            `Failed to persist assistant message (${assistantResponse.status})`,
-          );
-        }
-
-        const assistantData =
-          (await assistantResponse.json()) as CreateMessageResponse;
-        setMessages((current) => [...current, assistantData.message]);
-      }
-
-      for (const event of proxyData.events) {
-        await fetch(
-          `/api/conversations/${encodeURIComponent(activeConversationId)}/events`,
-          {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify({
-              kind: event.kind,
-              payload: event.payload,
-            }),
-          },
-        );
-      }
-
-      const eventsResponse = await fetch(
-        `/api/conversations/${encodeURIComponent(activeConversationId)}/events`,
+      const streamResponse = await fetch(
+        `/api/conversations/${encodeURIComponent(activeConversationId)}/messages`,
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ content, stream: true }),
+        },
       );
+
+      if (!streamResponse.ok) {
+        throw new Error(`Failed to stream assistant response (${streamResponse.status})`);
+      }
+
+      const reader = streamResponse.body?.getReader();
+      if (reader) {
+        const decoder = new TextDecoder();
+        // Consume SSE until done; persisted messages/events are fetched below.
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) {
+            break;
+          }
+          decoder.decode(value, { stream: true });
+        }
+      }
+
+      const [messagesResponse, eventsResponse] = await Promise.all([
+        fetch(`/api/conversations/${encodeURIComponent(activeConversationId)}/messages`),
+        fetch(`/api/conversations/${encodeURIComponent(activeConversationId)}/events`),
+      ]);
+
+      if (messagesResponse.ok) {
+        const messagesData = (await messagesResponse.json()) as MessagesResponse;
+        setMessages(messagesData.messages);
+      }
+
       if (eventsResponse.ok) {
         const eventsData = (await eventsResponse.json()) as EventsResponse;
         setEvents(eventsData.events);
