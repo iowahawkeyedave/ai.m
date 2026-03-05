@@ -174,6 +174,7 @@ export default function Home() {
 
   const activeBuddy = buddies.find((buddy) => buddy.id === activeBuddyId) ?? null;
   const onlineBuddyCount = buddies.filter((buddy) => buddy.statusFlavor !== "invisible").length;
+  const warningLevel = activeBuddy ? "0%" : "15%";
 
   async function sendMessage() {
     if (!activeConversationId || !activeBuddy || isSendingMessage) {
@@ -340,76 +341,55 @@ export default function Home() {
   })();
 
   return (
-    <div className="min-h-screen px-2 py-3 sm:px-4 sm:py-5 md:px-6">
-      <main className="aim-window mx-auto max-w-6xl p-2 md:p-3">
-        <header className="aim-titlebar mb-2 rounded-[3px] px-2 py-1 text-xs font-semibold sm:text-sm">
-          <div className="flex items-center justify-between gap-3">
-            <span className="truncate tracking-wide">
-              AOL Instant Messenger for Models - Welcome, dave
-            </span>
-            <span className="flex shrink-0 items-center gap-1">
-              <span className="aim-system-btn" data-kind="min" aria-hidden="true" />
-              <span className="aim-system-btn" data-kind="max" aria-hidden="true" />
-              <span className="aim-system-btn" data-kind="close" aria-hidden="true" />
-            </span>
+    <div className="aim-desktop min-h-screen px-3 py-5 sm:px-6 sm:py-8">
+      <main className="mx-auto flex max-w-[1120px] flex-wrap items-start justify-center gap-4 md:justify-start md:gap-6">
+        <section className="space-y-2">
+          <div className="aim-menu rounded-[2px] px-2 py-1 text-[11px] text-[#173b7f] sm:text-xs">
+            <span className="aim-menu-item mr-1 font-semibold">File</span>
+            <span className="aim-menu-item mr-1 font-semibold">Edit</span>
+            <span className="aim-menu-item mr-1 font-semibold">People</span>
+            <span className="aim-menu-item mr-1 font-semibold">Help</span>
           </div>
-        </header>
-        <div className="aim-menu mb-1 rounded-[2px] px-2 py-1 text-[11px] text-[#173b7f] sm:text-xs">
-          <span className="aim-menu-item mr-1 font-semibold">File</span>
-          <span className="aim-menu-item mr-1 font-semibold">Edit</span>
-          <span className="aim-menu-item mr-1 font-semibold">People</span>
-          <span className="aim-menu-item mr-1 font-semibold">Tools</span>
-          <span className="aim-menu-item mr-1 font-semibold">Help</span>
-        </div>
-        <div className="aim-toolbar mb-3 flex flex-wrap items-center gap-1 rounded-[2px] px-2 py-1">
-          <span className="aim-toolbar-btn px-2 py-0.5 text-[11px] font-semibold">IM</span>
-          <span className="aim-toolbar-btn px-2 py-0.5 text-[11px] font-semibold">Info</span>
-          <span className="aim-toolbar-btn px-2 py-0.5 text-[11px] font-semibold">Away</span>
-          <span className="aim-toolbar-btn px-2 py-0.5 text-[11px] font-semibold">Prefs</span>
-        </div>
-        <div className="grid gap-3 md:grid-cols-[280px_minmax(0,1fr)] md:gap-4">
           <BuddyList
             buddies={buddies}
             activeBuddyId={activeBuddyId}
             onSelectBuddy={openOrCreateConversation}
           />
-          <div className="min-w-0 space-y-2 sm:space-y-3">
-            <ChatWindow
-              buddy={activeBuddy}
-              conversation={activeConversation}
-              messages={messages}
-              events={events}
-              fallbackBanner={fallbackBanner}
-              isLoadingMessages={isLoadingMessages}
-              isSwitchingModel={isSwitchingModel}
-              draftMessage={draftMessage}
-              isSendingMessage={isSendingMessage}
-              onDraftMessageChange={setDraftMessage}
-              onSendMessage={sendMessage}
-              onModelSwitch={switchModel}
-            />
-            {loading ? (
-              <p className="px-1 text-xs text-[#213f7b]">Loading buddies...</p>
-            ) : null}
-            {activeConversationId ? (
-              <p className="truncate px-1 text-xs text-[#213f7b]">
-                Active conversation id: {activeConversationId}
-              </p>
-            ) : null}
-            {error ? (
-              <p className="rounded-sm border border-[#b74f4f] bg-[#ffe6e6] px-3 py-2 text-sm text-[#7c1f1f]">
-                {error}
-              </p>
-            ) : null}
-          </div>
+          <footer className="aim-statusbar grid gap-1 rounded-[2px] px-2 py-1 text-[11px] text-[#173b7f]">
+            <span className="aim-inset truncate bg-[#f5f8ff] px-2 py-0.5">
+              {loading ? "Loading buddies..." : `Buddies online: ${onlineBuddyCount}`}
+            </span>
+            <span className="aim-inset truncate bg-[#f5f8ff] px-2 py-0.5">
+              AI.M&apos;s Warning Level: {warningLevel}
+            </span>
+          </footer>
+        </section>
+        <div className="min-w-0 flex-1 space-y-2 md:max-w-[560px]">
+          <ChatWindow
+            buddy={activeBuddy}
+            conversation={activeConversation}
+            messages={messages}
+            events={events}
+            fallbackBanner={fallbackBanner}
+            isLoadingMessages={isLoadingMessages}
+            isSwitchingModel={isSwitchingModel}
+            draftMessage={draftMessage}
+            isSendingMessage={isSendingMessage}
+            onDraftMessageChange={setDraftMessage}
+            onSendMessage={sendMessage}
+            onModelSwitch={switchModel}
+          />
+          {error ? (
+            <p className="rounded-sm border border-[#b74f4f] bg-[#ffe6e6] px-3 py-2 text-sm text-[#7c1f1f]">
+              {error}
+            </p>
+          ) : null}
+          {activeConversationId ? (
+            <p className="px-1 text-[11px] text-[#2e3d5c]">
+              Active conversation: {activeConversationId}
+            </p>
+          ) : null}
         </div>
-        <footer className="aim-statusbar mt-3 grid gap-1 rounded-[2px] px-2 py-1 text-[11px] text-[#173b7f] sm:grid-cols-[1fr_auto_auto] sm:items-center sm:gap-2">
-          <span className="aim-inset truncate bg-[#f5f8ff] px-2 py-0.5">
-            {activeBuddy ? `Chatting with ${activeBuddy.displayName}` : "Ready"}
-          </span>
-          <span className="aim-inset bg-[#f5f8ff] px-2 py-0.5">Buddies online: {onlineBuddyCount}</span>
-          <span className="aim-inset bg-[#f5f8ff] px-2 py-0.5 text-right">Secure connection</span>
-        </footer>
       </main>
     </div>
   );

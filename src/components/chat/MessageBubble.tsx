@@ -1,33 +1,30 @@
-import type { Message } from "@/lib/types";
+import type { Buddy, Message } from "@/lib/types";
 
 interface MessageBubbleProps {
   message: Message;
+  buddy: Buddy | null;
 }
 
-export function MessageBubble({ message }: MessageBubbleProps) {
+export function MessageBubble({ message, buddy }: MessageBubbleProps) {
   const isUser = message.role === "user";
   const isSystem = message.role === "system";
-  const label = isUser ? "You" : isSystem ? "System" : "Buddy";
-  const timestamp = new Date(message.createdAt).toLocaleTimeString([], {
-    hour: "numeric",
-    minute: "2-digit",
-  });
+  const label = isUser ? "User" : isSystem ? "System" : (buddy?.displayName ?? "Buddy");
 
   return (
-    <article className="aim-log-bubble break-words px-2.5 py-1.5 text-[13px] leading-relaxed text-[#15387f]">
-      <p
+    <article className="aim-message-line break-words text-[15px] leading-[1.22] text-black">
+      <span
         className={[
-          "mb-0.5 text-[11px] font-bold",
-          isUser ? "text-[#0f3f91]" : isSystem ? "text-[#7a5600]" : "text-[#14691f]",
+          "mr-1 font-bold",
+          isUser ? "text-black" : isSystem ? "text-[#7a5600]" : "text-[#141b7d]",
         ].join(" ")}
       >
-        {timestamp} {label}:
-      </p>
-      <p className="whitespace-pre-wrap">
+        {label}:
+      </span>
+      <span className="whitespace-pre-wrap">
         {message.content}
-      </p>
+      </span>
       {message.modelUsed ? (
-        <p className="mt-0.5 text-[10px] text-[#5b70a5]">via {message.modelUsed}</p>
+        <span className="ml-1 text-[10px] text-[#6c6c6c]">[{message.modelUsed}]</span>
       ) : null}
     </article>
   );

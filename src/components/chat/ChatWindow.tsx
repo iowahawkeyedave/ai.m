@@ -47,7 +47,7 @@ export function ChatWindow({
   const composerDisabled = !conversation || isSendingMessage;
 
   return (
-    <section className="aim-panel flex min-h-[70vh] min-w-0 flex-col md:min-h-[540px]">
+    <section className="aim-window w-full min-w-0 p-2">
       <ChatHeader
         buddy={buddy}
         conversation={conversation}
@@ -55,39 +55,60 @@ export function ChatWindow({
         onModelSwitch={onModelSwitch}
       />
       {!buddy ? (
-        <div className="flex flex-1 items-center justify-center p-6 text-sm text-[#244282]">
-          Select a buddy to open or create a conversation.
-        </div>
+        <>
+          <div className="aim-chat-panel mt-2 flex min-h-[340px] items-center justify-center p-6 text-sm text-[#244282]">
+            Select a buddy to open or create a conversation.
+          </div>
+          <footer className="mt-2 space-y-2">
+            <Textarea
+              id="chat-composer"
+              value={draftMessage}
+              onChange={(event) => onDraftMessageChange(event.target.value)}
+              onKeyDown={handleComposerKeyDown}
+              disabled
+              placeholder="Select a buddy first to begin chatting."
+              rows={3}
+              className="aim-input min-h-[92px] resize-none px-3 py-2 text-[14px] text-black"
+            />
+            <div className="flex justify-end gap-3">
+              <Button disabled className="aim-action-btn min-w-[140px]">Send</Button>
+              <Button disabled className="aim-action-btn min-w-[140px]">Close</Button>
+            </div>
+          </footer>
+        </>
       ) : null}
       {buddy && isLoadingMessages ? (
-        <div className="flex flex-1 items-center justify-center p-6 text-sm text-[#244282]">
+        <div className="aim-chat-panel mt-2 flex min-h-[340px] items-center justify-center p-6 text-sm text-[#244282]">
           Loading messages...
         </div>
       ) : null}
       {buddy && !isLoadingMessages && messages.length === 0 ? (
-        <div className="flex flex-1 items-center justify-center p-6 text-sm text-[#244282]">
+        <div className="aim-chat-panel mt-2 flex min-h-[340px] items-center justify-center p-6 text-sm text-[#244282]">
           No messages yet. Start the conversation with a friendly IM.
         </div>
       ) : null}
       {buddy && !isLoadingMessages && messages.length > 0 ? (
-        <MessageList messages={messages} />
+        <div className="aim-chat-panel mt-2 min-h-[340px]">
+          <MessageList messages={messages} buddy={buddy} />
+        </div>
       ) : null}
       {buddy ? (
-        <div className="border-t border-[#9eabd1] bg-[#eef2fe] px-2 py-2 sm:px-3">
-          <ActivityFeed events={events} />
+        <div className="aim-compose-toolbar mt-2 flex flex-wrap items-center gap-1 px-2 py-1 text-[13px] text-[#0b2b89]">
+          <span className="aim-toolbar-glyph font-bold">A</span>
+          <span className="aim-toolbar-glyph font-black">A</span>
+          <span className="aim-toolbar-glyph underline">U</span>
+          <span className="aim-toolbar-glyph italic">I</span>
+          <span className="aim-toolbar-glyph">link</span>
+          <span className="aim-toolbar-glyph">:-)</span>
+          <span className="aim-toolbar-glyph">@</span>
         </div>
       ) : null}
       {fallbackBanner ? (
-        <div className="border-t border-[#cba83f] bg-[#fff8d9] px-3 py-2 text-xs break-words text-[#725400] sm:px-4">
+        <div className="mt-2 border border-[#cba83f] bg-[#fff8d9] px-3 py-2 text-xs break-words text-[#725400]">
           Fallback active: {fallbackBanner}
         </div>
       ) : null}
-      <footer className="border-t border-[#9eabd1] bg-[#f7f9ff] p-2 sm:p-3">
-        <label htmlFor="chat-composer" className="mb-1 block text-xs font-semibold text-[#34528f]">
-          {conversation
-            ? "Press Enter to send. Shift+Enter for newline."
-            : "Select a buddy first to begin chatting."}
-        </label>
+      <footer className="mt-2">
         <Textarea
           id="chat-composer"
           value={draftMessage}
@@ -96,20 +117,24 @@ export function ChatWindow({
           disabled={composerDisabled}
           placeholder={conversation ? "Type a message..." : "No active conversation"}
           rows={3}
-          className="aim-input min-h-[84px] resize-none text-[13px]"
+          className="aim-input min-h-[98px] resize-none px-3 py-2 text-[14px] text-black"
         />
-        <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <p className="aim-inset w-full truncate bg-[#f5f8ff] px-2 py-0.5 text-xs text-[#34528f] sm:w-auto">
-            {conversation ? `Conversation title: ${conversation.title}` : ""}
-          </p>
-          <Button
-            disabled={composerDisabled || draftMessage.trim().length === 0}
-            onClick={onSendMessage}
-            size="sm"
-            className="aim-button sm:self-auto"
-          >
-            {isSendingMessage ? "Sending..." : "Send IM"}
-          </Button>
+        <div className="mt-3 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+          <div className="min-w-0 flex-1">
+            <ActivityFeed events={events} />
+          </div>
+          <div className="flex shrink-0 gap-3">
+            <Button
+              disabled={composerDisabled || draftMessage.trim().length === 0}
+              onClick={onSendMessage}
+              className="aim-action-btn min-w-[140px]"
+            >
+              {isSendingMessage ? "Sending..." : "Send"}
+            </Button>
+            <Button disabled={isSendingMessage} className="aim-action-btn min-w-[140px]">
+              Close
+            </Button>
+          </div>
         </div>
       </footer>
     </section>

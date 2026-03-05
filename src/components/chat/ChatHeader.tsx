@@ -39,9 +39,13 @@ export function ChatHeader({
 }: ChatHeaderProps) {
   if (!buddy) {
     return (
-      <header className="aim-titlebar rounded-t-[3px] px-4 py-2.5">
-        <p className="text-sm font-semibold">No buddy selected</p>
-        <p className="text-xs text-[#eaf1ff]">Choose a buddy from your list to start chatting.</p>
+      <header className="aim-titlebar flex items-center justify-between rounded-[2px] px-2 py-1">
+        <p className="text-sm font-semibold">instant message</p>
+        <span className="flex items-center gap-1">
+          <span className="aim-system-btn" data-kind="min" aria-hidden="true" />
+          <span className="aim-system-btn" data-kind="max" aria-hidden="true" />
+          <span className="aim-system-btn" data-kind="close" aria-hidden="true" />
+        </span>
       </header>
     );
   }
@@ -58,24 +62,23 @@ export function ChatHeader({
       ];
 
   return (
-    <header className="aim-titlebar rounded-t-[3px] px-4 py-2.5">
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+    <header className="aim-titlebar rounded-[2px] px-2 py-1">
+      <div className="flex items-center justify-between gap-3">
         <div className="min-w-0">
-          <h2 className="truncate text-sm font-semibold">
-            {buddy.displayName}
+          <h2 className="truncate text-sm font-semibold lowercase">
+            instant message
           </h2>
-          <p className="truncate text-xs text-[#eaf1ff]">
-            Screen name: {buddy.id}
+          <p className="truncate text-[10px] text-[#eaf1ff]">
+            {buddy.displayName} ({buddy.id})
           </p>
         </div>
-        <div className="aim-inset rounded-sm bg-[#f5f8ff] px-2 py-1 text-[#15387f] sm:max-w-[55%] sm:text-right">
-          <p className="text-[10px] uppercase tracking-wide text-[#4c66a3]">Current model</p>
-          <p className="break-all text-xs font-semibold">
-            {buddy.model}
-          </p>
-        </div>
+        <span className="flex items-center gap-1">
+          <span className="aim-system-btn" data-kind="min" aria-hidden="true" />
+          <span className="aim-system-btn" data-kind="max" aria-hidden="true" />
+          <span className="aim-system-btn" data-kind="close" aria-hidden="true" />
+        </span>
       </div>
-      <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+      <div className="mt-1 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
         <ModelSwitcher
           value={buddy.model}
           options={resolvedModelOptions}
@@ -83,13 +86,12 @@ export function ChatHeader({
           onChange={onModelSwitch}
         />
         {isSwitchingModel ? (
-          <span className="text-xs text-[#eaf1ff]">Switching...</span>
+          <span className="text-[10px] text-[#eaf1ff]">Switching...</span>
         ) : null}
       </div>
-      <p className="mt-2 text-xs text-[#eaf1ff]">Service: {buddy.provider}</p>
       {conversation ? (
-        <p className="mt-2 truncate text-xs text-[#eaf1ff]">
-          Conversation: {conversation.id}
+        <p className="mt-1 truncate text-[10px] text-[#eaf1ff]">
+          Thread: {conversation.title}
         </p>
       ) : null}
     </header>

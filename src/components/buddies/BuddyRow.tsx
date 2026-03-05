@@ -14,19 +14,23 @@ export function BuddyRow({ buddy, status, isActive, onSelect }: BuddyRowProps) {
       type="button"
       onClick={() => onSelect(buddy.id)}
       className={[
-        "flex w-full items-center justify-between border px-2 py-1.5 text-left text-[13px] transition-colors focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-[-2px] focus-visible:outline-[#1b4ba4]",
+        "flex w-full items-center gap-2 px-1.5 py-1 text-left text-[13px] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-[-2px] focus-visible:outline-[#1b4ba4]",
         isActive
-          ? "border-[#3558ab] bg-[#d7e5ff] shadow-[inset_1px_1px_0_#ffffff,inset_-1px_-1px_0_#99ade0]"
-          : "border-[#a8b4d2] bg-[#f8f8fc] shadow-[inset_1px_1px_0_#ffffff] hover:bg-[#ebf1ff]",
+          ? "bg-[#dbe7ff]"
+          : "hover:bg-[#f2f2f2]",
       ].join(" ")}
     >
-      <span className="flex min-w-0 flex-col">
-        <span className="truncate font-bold tracking-[0.1px] text-[#0f3a80]">
+      <span className="shrink-0">
+        <StatusLight status={status} />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block truncate text-[15px] font-medium text-black">
           {buddy.displayName}
         </span>
-        <span className="truncate text-[11px] text-[#2f518f]">{buddy.provider}: {buddy.model}</span>
+        <span className="block truncate text-[10px] text-[#5b5b5b]">
+          {buddy.provider}
+        </span>
       </span>
-      <StatusLight status={status} />
     </button>
   );
 }

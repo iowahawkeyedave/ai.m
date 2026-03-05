@@ -18,7 +18,7 @@ export function ModelSwitcher({
   onChange,
 }: ModelSwitcherProps) {
   return (
-    <label className="flex items-center gap-2 text-xs text-[#eaf1ff]">
+    <label className="flex items-center gap-2 text-[11px] text-[#eaf1ff]">
       <span>Model</span>
       <select
         value={value}
@@ -31,7 +31,7 @@ export function ModelSwitcher({
             onChange(selected);
           }
         }}
-        className="aim-input max-w-[240px] rounded-sm bg-[#f5f8ff] px-2 py-1 text-xs text-[#17397d] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-[-2px] focus-visible:outline-[#1b4ba4] disabled:cursor-not-allowed disabled:opacity-70"
+        className="aim-input max-w-[230px] bg-white px-2 py-0.5 text-[11px] text-black focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-[-2px] focus-visible:outline-[#1b4ba4] disabled:cursor-not-allowed disabled:opacity-70"
       >
         {options.map((option) => (
           <option key={option.model} value={option.model}>

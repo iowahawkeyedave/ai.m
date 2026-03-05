@@ -45,35 +45,21 @@ function formatEventDetail(payloadJson: string): string {
 export function ActivityFeed({ events }: ActivityFeedProps) {
   if (events.length === 0) {
     return (
-      <aside className="aim-inset rounded-sm bg-[#f8faff] p-2.5">
-        <h3 className="text-xs font-semibold tracking-wide text-[#284688]">
-          Activity
-        </h3>
-        <p className="mt-2 text-xs text-[#4e67a0]">
-          No tool or fallback activity yet.
-        </p>
+      <aside className="aim-inset min-h-[70px] bg-[#efefef] px-2 py-1.5">
+        <h3 className="text-[11px] font-bold text-black">Status</h3>
+        <p className="mt-1 text-[11px] text-[#4e4e4e]">No tool or fallback activity yet.</p>
       </aside>
     );
   }
 
   return (
-    <aside className="aim-inset rounded-sm bg-[#f8faff] p-2.5">
-      <h3 className="text-xs font-semibold tracking-wide text-[#284688]">
-        Activity
-      </h3>
-      <ol className="mt-2 max-h-40 space-y-2 overflow-y-auto pr-1">
+    <aside className="aim-inset min-h-[70px] bg-[#efefef] px-2 py-1.5">
+      <h3 className="text-[11px] font-bold text-black">Status</h3>
+      <ol className="mt-1 max-h-[58px] space-y-1 overflow-y-auto pr-1">
         {events.map((event) => (
-          <li
-            key={event.id}
-            className="rounded-sm border border-[#a8b6da] bg-white p-2"
-          >
-            <p className="text-xs font-semibold text-[#1f3f86]">
-              {formatEventLabel(event)}
-            </p>
-            <p className="mt-0.5 text-xs break-words text-[#4d669f]">
-              {formatEventDetail(event.payloadJson)}
-            </p>
-            <p className="mt-1 truncate text-[10px] text-[#6b7fad]">{event.createdAt}</p>
+          <li key={event.id} className="text-[11px] text-[#343434]">
+            <span className="font-bold text-black">{formatEventLabel(event)}:</span>{" "}
+            <span className="break-words">{formatEventDetail(event.payloadJson)}</span>
           </li>
         ))}
       </ol>

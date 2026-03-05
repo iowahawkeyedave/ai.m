@@ -15,7 +15,7 @@ export function StatusLight({ status }: StatusLightProps) {
   return (
     <span
       aria-label={`status-${status}`}
-      className={`inline-block h-3.5 w-3.5 rounded-full border border-white shadow-[0_0_0_1px_#2d3e70] ${STATUS_CLASS_MAP[status]}`}
+      className={`inline-block h-2.5 w-2.5 border border-black ${STATUS_CLASS_MAP[status]}`}
     />
   );
 }

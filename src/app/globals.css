@@ -90,53 +90,49 @@ body {
   font-family: var(--font-sans);
   letter-spacing: 0.1px;
   background:
-    linear-gradient(135deg, rgb(255 255 255 / 7%) 25%, transparent 25%) 0 0 / 14px 14px,
-    linear-gradient(315deg, rgb(255 255 255 / 6%) 25%, transparent 25%) 0 0 / 14px 14px,
-    radial-gradient(circle at 14% 16%, #7adfff 0%, transparent 32%),
-    radial-gradient(circle at 84% 14%, #75b7ff 0%, transparent 29%),
-    linear-gradient(180deg, #0666c8 0%, #0d4da7 46%, #0b3e90 100%);
+    radial-gradient(circle at 20% 20%, rgb(255 255 255 / 0.45) 0, transparent 1.5px) 0 0 / 12px 12px,
+    linear-gradient(180deg, #d2d2d2 0%, #c7c7c7 100%);
+}
+
+.aim-desktop {
+  background:
+    radial-gradient(circle at 12% 16%, rgb(255 255 255 / 0.45) 0, transparent 1.5px) 0 0 / 12px 12px,
+    linear-gradient(180deg, #d4d4d4 0%, #c8c8c8 100%);
 }
 
 .aim-window {
-  border: 1px solid #0e2d70;
-  border-radius: 4px;
-  background: #ece9d8;
+  border: 1px solid #4f4f4f;
+  background: #d4d4d4;
   box-shadow:
-    0 18px 42px rgb(4 25 62 / 50%),
-    0 0 0 1px #3559ab,
-    inset 1px 1px 0 #ffffff,
-    inset -1px -1px 0 #8b99c0;
+    1px 1px 0 #ffffff,
+    -1px -1px 0 #7f7f7f,
+    2px 2px 0 rgb(0 0 0 / 18%);
 }
 
 .aim-inset {
-  border: 1px solid #7f90bc;
+  border: 1px solid #808080;
   box-shadow:
-    inset 1px 1px 0 #ffffff,
-    inset -1px -1px 0 #d1d7e6;
+    inset 1px 1px 0 #7a7a7a,
+    inset -1px -1px 0 #ffffff;
 }
 
 .aim-panel {
-  border: 1px solid #7a8cbf;
-  border-radius: 3px;
-  background: linear-gradient(180deg, #f7f5eb 0%, #efecdf 100%);
-  box-shadow:
-    inset 1px 1px 0 #fff,
-    inset -1px -1px 0 #ccd4ea;
+  border: 1px solid #7f7f7f;
+  background: #d4d4d4;
 }
 
 .aim-titlebar {
-  background: linear-gradient(90deg, #0a2f8a 0%, #2f6fd9 65%, #79aefc 100%);
+  background: linear-gradient(90deg, #060093 0%, #0e149f 55%, #1638ba 100%);
   color: #fff;
-  text-shadow: 0 1px 0 rgb(0 0 0 / 35%);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 25%),
-    inset 0 -1px 0 rgb(9 35 103 / 70%);
+  text-shadow: 1px 1px 0 rgb(0 0 0 / 35%);
 }
 
 .aim-menu {
-  border-top: 1px solid #b2bfde;
-  border-bottom: 1px solid #b2bfde;
-  background: linear-gradient(180deg, #fdfdf8 0%, #e9e6d4 100%);
+  border: 1px solid #7f7f7f;
+  background: #d4d4d4;
+  box-shadow:
+    inset 1px 1px 0 #ffffff,
+    inset -1px -1px 0 #9e9e9e;
 }
 
 .aim-menu-item {
@@ -156,66 +152,66 @@ body {
 }
 
 .aim-statusbar {
-  border-top: 1px solid #9caad1;
-  background: linear-gradient(180deg, #eff4ff 0%, #dce6fb 100%);
+  border: 1px solid #7f7f7f;
+  background: #d4d4d4;
+  box-shadow:
+    inset 1px 1px 0 #ffffff,
+    inset -1px -1px 0 #9e9e9e;
 }
 
 .aim-input {
-  border: 1px solid #5b6ea5;
-  border-radius: 2px;
+  border: 1px solid #808080;
   background: #fff;
-  box-shadow: inset 1px 1px 0 #d2d7ed;
+  box-shadow:
+    inset 1px 1px 0 #808080,
+    inset -1px -1px 0 #ffffff;
 }
 
 .aim-input:focus {
-  outline: 1px dotted #244c9c;
+  outline: 1px dotted #000;
   outline-offset: -3px;
 }
 
 .aim-button {
-  border: 1px solid #2a4f9e;
-  border-radius: 2px;
-  background: linear-gradient(180deg, #f8fbff 0%, #dce7ff 100%);
-  color: #102f6f;
-  font-weight: 700;
-  text-shadow: 0 1px 0 rgb(255 255 255 / 60%);
+  border: 1px solid #7f7f7f;
+  background: #d4d4d4;
+  color: #000;
+  font-weight: 400;
   box-shadow:
     inset 1px 1px 0 #ffffff,
-    inset -1px -1px 0 #a4b4da;
+    inset -1px -1px 0 #8a8a8a;
 }
 
 .aim-button:hover {
-  background: linear-gradient(180deg, #fff 0%, #eaf0ff 100%);
+  background: #dddddd;
 }
 
 .aim-button:disabled {
-  border-color: #95a5cf;
-  color: #8090b6;
-  background: linear-gradient(180deg, #f4f6fb 0%, #e8edf9 100%);
+  color: #6d6d6d;
+  background: #d7d7d7;
 }
 
 .aim-button:active {
   box-shadow:
-    inset -1px -1px 0 #ffffff,
-    inset 1px 1px 0 #9aaedb;
+    inset 1px 1px 0 #8a8a8a,
+    inset -1px -1px 0 #ffffff;
 }
 
 .aim-system-btn {
   width: 17px;
   height: 15px;
-  border: 1px solid #12326d;
-  border-radius: 2px;
-  background: linear-gradient(180deg, #d8e5ff 0%, #9fbef3 100%);
+  border: 1px solid #666;
+  background: #d4d4d4;
   box-shadow:
     inset 1px 1px 0 #ffffff,
-    inset -1px -1px 0 #6a8fcd;
+    inset -1px -1px 0 #7c7c7c;
 }
 
 .aim-system-btn[data-kind="min"]::before,
 .aim-system-btn[data-kind="max"]::before,
 .aim-system-btn[data-kind="close"]::before {
   display: block;
-  color: #163c84;
+  color: #000;
   font-size: 10px;
   line-height: 13px;
   text-align: center;
@@ -253,25 +249,101 @@ body {
 }
 
 .aim-log {
-  border: 1px solid #90a2d3;
-  background:
-    linear-gradient(180deg, rgb(248 251 255 / 75%) 0%, rgb(255 255 255 / 95%) 100%),
-    repeating-linear-gradient(
-      0deg,
-      rgb(80 113 182 / 4%) 0,
-      rgb(80 113 182 / 4%) 1px,
-      transparent 1px,
-      transparent 24px
-    );
-  box-shadow:
-    inset 1px 1px 0 #ffffff,
-    inset -1px -1px 0 #d4dcf1;
+  background: #fff;
 }
 
-.aim-log-bubble {
-  border: 1px solid #c4d0ea;
-  background: linear-gradient(180deg, #ffffff 0%, #f3f6ff 100%);
-  box-shadow: inset 1px 1px 0 #ffffff;
+.aim-chat-panel {
+  border: 1px solid #7f7f7f;
+  background: #fff;
+  box-shadow:
+    inset 1px 1px 0 #7f7f7f,
+    inset -1px -1px 0 #ffffff;
+}
+
+.aim-buddy-window {
+  min-height: 0;
+}
+
+.aim-buddy-hero {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid #7f7f7f;
+  background: #fff;
+  padding: 16px 14px;
+  box-shadow:
+    inset 1px 1px 0 #7f7f7f,
+    inset -1px -1px 0 #ffffff;
+}
+
+.aim-running-man {
+  display: flex;
+  height: 76px;
+  width: 76px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #000;
+  border-radius: 999px;
+  background: radial-gradient(circle at 40% 35%, #ffe562 0%, #f3cf21 58%, #cfaa00 100%);
+  color: #000;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.aim-buddy-groups {
+  min-height: 340px;
+}
+
+.aim-message-line + .aim-message-line {
+  margin-top: 12px;
+}
+
+.aim-compose-toolbar {
+  border: 1px solid #7f7f7f;
+  background: #d4d4d4;
+  box-shadow:
+    inset 1px 1px 0 #ffffff,
+    inset -1px -1px 0 #9e9e9e;
+}
+
+.aim-toolbar-glyph {
+  display: inline-flex;
+  min-width: 20px;
+  justify-content: center;
+}
+
+.aim-footer-action,
+.aim-launch-btn,
+.aim-action-btn {
+  border: 1px solid #7f7f7f;
+  background: #d4d4d4;
+  color: #000;
+  box-shadow:
+    inset 1px 1px 0 #ffffff,
+    inset -1px -1px 0 #8a8a8a;
+}
+
+.aim-footer-action {
+  min-height: 62px;
+  font-size: 15px;
+}
+
+.aim-launch-btn {
+  padding: 8px 12px;
+  font-size: 15px;
+  text-align: left;
+}
+
+.aim-action-btn {
+  min-height: 46px;
+  border-radius: 0;
+  font-size: 18px;
+}
+
+.aim-action-btn:hover,
+.aim-footer-action:hover,
+.aim-launch-btn:hover {
+  background: #dddddd;
 }
 
 .dark {
