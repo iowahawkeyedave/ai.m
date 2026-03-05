@@ -24,12 +24,17 @@ export function BuddyList({
   activeBuddyId,
   onSelectBuddy,
 }: BuddyListProps) {
+  const visibleBuddies = buddies.filter((buddy) => normalizeStatus(buddy.statusFlavor) !== "invisible").length;
+
   return (
-    <aside className="w-full min-w-0 rounded-xl border border-zinc-200 bg-white p-3">
-      <h2 className="px-1 pb-2 text-xs font-semibold uppercase tracking-wide text-zinc-500">
-        Buddies
+    <aside className="aim-panel w-full min-w-0 p-2.5 sm:p-3">
+      <h2 className="aim-titlebar rounded-[2px] px-2 py-1 text-xs font-semibold tracking-wide">
+        Buddy List
       </h2>
-      <div className="max-h-[42vh] space-y-2 overflow-y-auto pr-1 md:max-h-none md:overflow-visible md:pr-0">
+      <p className="aim-inset mt-2 bg-[#f7f9ff] px-2 py-1 text-[11px] text-[#2a4a8f]">
+        Online Buddies ({visibleBuddies}/{buddies.length})
+      </p>
+      <div className="mt-2 max-h-[42vh] space-y-2 overflow-y-auto pr-1 md:max-h-none md:overflow-visible md:pr-0">
         {buddies.map((buddy) => (
           <BuddyRow
             key={buddy.id}
